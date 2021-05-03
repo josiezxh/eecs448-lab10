@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Lab10: View User Posts</title>
+    </head>
+    <style>
+        body{
+            padding: 50px; background-color: #a2b29f;
+        }
+        ul{
+                font-size: 20px;
+            }
+        div{
+            border-style:groove; border-width: 10px; border-color: #798777; padding: 20px; max-width: fit-content;
+        }
+    </style>
+
+    <body>
+        
+        <div>
+            <form action="ViewUserPosts.php" method="post">
+            <label for="user">Choose a user:</label>
+            <select name="user" id="user">
+            <?php
+                $mysqli = new mysqli("mysql.eecs.ku.edu", "josieharding", "Tohng7ai", "josieharding");
+
+                if($mysqli->connect_errno){
+                    printf("Connect failed: %s\n", $mysqli->connect_error);
+                    exit();
+                }
+
+                $query = "SELECT user_id FROM Users";
+                $result = $mysqli->query($query);
+                while($row = $result->fetch_assoc()){
+                    echo "<option value ='" .$row["user_id"]. "'>" .$row["user_id"]. "</option>";
+                }
+                $mysqli->close();
+            ?>
+            <input type="submit" value="See Posts"></input>
+        </form>
+        </div>
+
+    </body>
+</html>
+
+
